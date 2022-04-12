@@ -4,12 +4,13 @@
 #
 Name     : pypi-flake8_blind_except
 Version  : 0.2.1
-Release  : 29
+Release  : 30
 URL      : https://files.pythonhosted.org/packages/be/f8/cb5e0b8c948cb347b8942cb7ce73292a77ec8f9eafb8d5db999c5c1ac62f/flake8-blind-except-0.2.1.tar.gz
 Source0  : https://files.pythonhosted.org/packages/be/f8/cb5e0b8c948cb347b8942cb7ce73292a77ec8f9eafb8d5db999c5c1ac62f/flake8-blind-except-0.2.1.tar.gz
 Summary  : A flake8 extension that checks for blind except: statements
 Group    : Development/Tools
 License  : MIT
+Requires: pypi-flake8_blind_except-license = %{version}-%{release}
 Requires: pypi-flake8_blind_except-python = %{version}-%{release}
 Requires: pypi-flake8_blind_except-python3 = %{version}-%{release}
 BuildRequires : buildreq-distutils3
@@ -18,6 +19,14 @@ BuildRequires : buildreq-distutils3
 flake8-blind-except
 ===================
 A flake8 extension that checks for blind, catch-all ``except:`` and ``except Exception:`` statements.
+
+%package license
+Summary: license components for the pypi-flake8_blind_except package.
+Group: Default
+
+%description license
+license components for the pypi-flake8_blind_except package.
+
 
 %package python
 Summary: python components for the pypi-flake8_blind_except package.
@@ -47,7 +56,7 @@ export http_proxy=http://127.0.0.1:9/
 export https_proxy=http://127.0.0.1:9/
 export no_proxy=localhost,127.0.0.1,0.0.0.0
 export LANG=C.UTF-8
-export SOURCE_DATE_EPOCH=1647643646
+export SOURCE_DATE_EPOCH=1649746749
 export GCC_IGNORE_WERROR=1
 export CFLAGS="$CFLAGS -fno-lto "
 export FCFLAGS="$FFLAGS -fno-lto "
@@ -59,6 +68,8 @@ python3 setup.py build
 %install
 export MAKEFLAGS=%{?_smp_mflags}
 rm -rf %{buildroot}
+mkdir -p %{buildroot}/usr/share/package-licenses/pypi-flake8_blind_except
+cp %{_builddir}/flake8-blind-except-0.2.1/LICENSE %{buildroot}/usr/share/package-licenses/pypi-flake8_blind_except/f94276cc978185f96181f0938d3de5f773f28ad4
 python3 -tt setup.py build  install --root=%{buildroot}
 echo ----[ mark ]----
 cat %{buildroot}/usr/lib/python3*/site-packages/*/requires.txt || :
@@ -66,6 +77,10 @@ echo ----[ mark ]----
 
 %files
 %defattr(-,root,root,-)
+
+%files license
+%defattr(0644,root,root,0755)
+/usr/share/package-licenses/pypi-flake8_blind_except/f94276cc978185f96181f0938d3de5f773f28ad4
 
 %files python
 %defattr(-,root,root,-)
