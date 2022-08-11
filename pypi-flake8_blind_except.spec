@@ -4,7 +4,7 @@
 #
 Name     : pypi-flake8_blind_except
 Version  : 0.2.1
-Release  : 34
+Release  : 35
 URL      : https://files.pythonhosted.org/packages/be/f8/cb5e0b8c948cb347b8942cb7ce73292a77ec8f9eafb8d5db999c5c1ac62f/flake8-blind-except-0.2.1.tar.gz
 Source0  : https://files.pythonhosted.org/packages/be/f8/cb5e0b8c948cb347b8942cb7ce73292a77ec8f9eafb8d5db999c5c1ac62f/flake8-blind-except-0.2.1.tar.gz
 Summary  : A flake8 extension that checks for blind except: statements
