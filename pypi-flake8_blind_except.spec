@@ -4,7 +4,7 @@
 #
 Name     : pypi-flake8_blind_except
 Version  : 0.2.1
-Release  : 39
+Release  : 40
 URL      : https://files.pythonhosted.org/packages/be/f8/cb5e0b8c948cb347b8942cb7ce73292a77ec8f9eafb8d5db999c5c1ac62f/flake8-blind-except-0.2.1.tar.gz
 Source0  : https://files.pythonhosted.org/packages/be/f8/cb5e0b8c948cb347b8942cb7ce73292a77ec8f9eafb8d5db999c5c1ac62f/flake8-blind-except-0.2.1.tar.gz
 Summary  : A flake8 extension that checks for blind except: statements
@@ -14,6 +14,9 @@ Requires: pypi-flake8_blind_except-license = %{version}-%{release}
 Requires: pypi-flake8_blind_except-python = %{version}-%{release}
 Requires: pypi-flake8_blind_except-python3 = %{version}-%{release}
 BuildRequires : buildreq-distutils3
+# Suppress stripping binaries
+%define __strip /bin/true
+%define debug_package %{nil}
 
 %description
 flake8-blind-except
@@ -59,12 +62,12 @@ export http_proxy=http://127.0.0.1:9/
 export https_proxy=http://127.0.0.1:9/
 export no_proxy=localhost,127.0.0.1,0.0.0.0
 export LANG=C.UTF-8
-export SOURCE_DATE_EPOCH=1656405062
+export SOURCE_DATE_EPOCH=1672271899
 export GCC_IGNORE_WERROR=1
-export CFLAGS="$CFLAGS -fno-lto "
-export FCFLAGS="$FFLAGS -fno-lto "
-export FFLAGS="$FFLAGS -fno-lto "
-export CXXFLAGS="$CXXFLAGS -fno-lto "
+export CFLAGS="$CFLAGS -fdebug-types-section -femit-struct-debug-baseonly -fno-lto -g1 -gno-column-info -gno-variable-location-views -gz "
+export FCFLAGS="$FFLAGS -fdebug-types-section -femit-struct-debug-baseonly -fno-lto -g1 -gno-column-info -gno-variable-location-views -gz "
+export FFLAGS="$FFLAGS -fdebug-types-section -femit-struct-debug-baseonly -fno-lto -g1 -gno-column-info -gno-variable-location-views -gz "
+export CXXFLAGS="$CXXFLAGS -fdebug-types-section -femit-struct-debug-baseonly -fno-lto -g1 -gno-column-info -gno-variable-location-views -gz "
 export MAKEFLAGS=%{?_smp_mflags}
 python3 setup.py build
 
@@ -81,7 +84,7 @@ popd
 export MAKEFLAGS=%{?_smp_mflags}
 rm -rf %{buildroot}
 mkdir -p %{buildroot}/usr/share/package-licenses/pypi-flake8_blind_except
-cp %{_builddir}/flake8-blind-except-0.2.1/LICENSE %{buildroot}/usr/share/package-licenses/pypi-flake8_blind_except/f94276cc978185f96181f0938d3de5f773f28ad4
+cp %{_builddir}/flake8-blind-except-%{version}/LICENSE %{buildroot}/usr/share/package-licenses/pypi-flake8_blind_except/f94276cc978185f96181f0938d3de5f773f28ad4 || :
 python3 -tt setup.py build  install --root=%{buildroot}
 echo ----[ mark ]----
 cat %{buildroot}/usr/lib/python3*/site-packages/*/requires.txt || :
